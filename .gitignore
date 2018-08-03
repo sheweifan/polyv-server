@@ -1,0 +1,9 @@
+/node_modules
+*.log
+npm-debug.log
+.eslintcache
+**/.DS_Store
+.DS_Store
+/manifest.json
+/dist
+/src/config.js
