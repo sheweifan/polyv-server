@@ -48,11 +48,23 @@ exports.token = async ctx => {
       data: postData,
       headers: { 'content-type': 'application/x-www-form-urlencoded' }
     })
-    ctx.body = res.data
+    const {
+      data, code
+    } = res.data
+    if (code === 200) {
+      ctx.body = {
+        code: 0,
+        data: {
+          token: data.token
+        }
+      }
+    } else {
+      throw new Error('第三方签名失败')
+    }
   } catch (e) {
     console.log(e)
     ctx.body = {
-      code: 0
+      code: 1
     }
   }
 
