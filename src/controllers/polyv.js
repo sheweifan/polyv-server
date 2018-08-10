@@ -8,6 +8,16 @@ const apis = {
   token: 'https://hls.videocc.net/service/v1/token'
 }
 
+const getSign = id => {
+  const secretkey = config.secretkey
+  const ts = new Date().getTime()
+  const sign = md5(secretkey + id + ts)
+
+  return {
+    sign, ts
+  }
+}
+
 exports.token = async ctx => {
   const { id } = ctx.query
   const userId = config.userid
@@ -72,14 +82,9 @@ exports.token = async ctx => {
 
 exports.sign = async ctx => {
   const { id } = ctx.query
-  const secretkey = config.secretkey
-  const ts = new Date().getTime()
-  const sign = md5(secretkey + id + ts)
   ctx.body = {
     success: true,
     code: 0,
-    data: {
-      ts, sign
-    }
+    data: getSign(id)
   }
 }
