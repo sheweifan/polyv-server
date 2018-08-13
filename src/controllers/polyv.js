@@ -79,12 +79,3 @@ exports.token = async ctx => {
   }
 
 }
-
-exports.sign = async ctx => {
-  const { id } = ctx.query
-  ctx.body = {
-    success: true,
-    code: 0,
-    data: getSign(id)
-  }
-}
